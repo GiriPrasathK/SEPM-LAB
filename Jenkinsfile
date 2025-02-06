@@ -1,6 +1,8 @@
 pipeline {
     agent any
- stage('Compile') {
+    
+    stages {
+        stage('Compile') {
             steps {
                 // Run Maven to compile the project
                 script {
@@ -9,7 +11,8 @@ pipeline {
                 }
             }
         }
-  stage('Build') {
+        
+        stage('Build') {
             steps {
                 // Build the project and package it
                 script {
@@ -18,4 +21,14 @@ pipeline {
                 }
             }
         }
+    }
+    
+    post {
+        success {
+            echo 'Build and compile completed successfully.'
+        }
+        failure {
+            echo 'There was an issue with the build process.'
+        }
+    }
 }
